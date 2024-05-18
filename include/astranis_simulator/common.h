@@ -1,3 +1,3 @@
 #include <Eigen/Dense>
 
-typedef Eigen::VectorXd state_type;
+double EPS = 1e-6;
