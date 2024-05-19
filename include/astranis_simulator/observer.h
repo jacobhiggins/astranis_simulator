@@ -9,7 +9,7 @@ private:
 public:
     Eigen::VectorXd get_x_hat();
     virtual void set_x_hat(const Eigen::VectorXd& x_hat_);
-    virtual void update(const Eigen::VectorXd& y, const Eigen::VectorXd& u) = 0;
+    virtual void update(const Eigen::VectorXd& y, const Eigen::VectorXd& u, const double& dt) = 0;
 };
 
 /* Full state observer class
@@ -20,5 +20,5 @@ private:
 public:
     FullStateObserver(const int& state_dim_);
     void set_x_hat(const Eigen::VectorXd& x_hat_) override;
-    void update(const Eigen::VectorXd& y, const Eigen::VectorXd& u) override;
+    void update(const Eigen::VectorXd& y, const Eigen::VectorXd& u, const double& dt) override;
 };

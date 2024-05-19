@@ -22,7 +22,7 @@ void FullStateObserver::set_x_hat(const Eigen::VectorXd& x_hat_){
     Observer::set_x_hat(x_hat_);
 }
 
-void FullStateObserver::update(const Eigen::VectorXd& y, const Eigen::VectorXd& u){
+void FullStateObserver::update(const Eigen::VectorXd& y, const Eigen::VectorXd& u, const double& dt){
     if (y.size() != state_dim){
         throw std::invalid_argument("y must have the same size as state_dim for full-state observer");
     }

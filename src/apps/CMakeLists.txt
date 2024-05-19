@@ -1,1 +1,5 @@
-add_executable(run_sim run_sim.cpp)
+add_executable(run_single_sim run_single_sim.cpp)
+target_link_libraries(run_single_sim system_lib controller_lib observer_lib simulator_lib)
+
+add_executable(run_many_sims run_many_sims.cpp)
+target_link_libraries(run_many_sims system_lib controller_lib observer_lib simulator_lib)

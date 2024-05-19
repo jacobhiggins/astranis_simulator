@@ -19,7 +19,7 @@ public:
     void set_x(const Eigen::VectorXd& x_);
     virtual Eigen::VectorXd xdot(const Eigen::VectorXd& u) = 0;
     virtual Eigen::VectorXd get_y(const Eigen::VectorXd& u) = 0;
-    void update(const Eigen::VectorXd& u, const double& dt);
+    virtual void update(const Eigen::VectorXd& u, const double& dt);
 };
 
 /* Linear System class
@@ -57,4 +57,16 @@ public:
     double get_k() const;
     double get_b();
     double get_b() const;
+};
+
+/* Noisy Spring-mass system class
+
+*/
+class NoisySpringMassSystem : public SpringMassSystem {
+private:
+    Eigen::Vector2d noise_std = Eigen::Vector2d::Zero();
+public:
+    NoisySpringMassSystem(const double& m_, const double& k_, const double& b_);
+    void update(const Eigen::VectorXd& u, const double& dt) override;
+    void set_noise_std(const Eigen::Vector2d& noise_std_);
 };
