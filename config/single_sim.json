@@ -1,0 +1,18 @@
+{
+    "system": {
+        "mass": 1.0,
+        "spring_constant": 1.0,
+        "damping_coefficient": 0.1
+    },
+    "controller": {
+        "decay_rate": 1.0
+    },
+    "state_conditions": {
+        "x0": [2.0, -2.0],
+        "xref": [1.0, 0.0]
+    },
+    "simulator": {
+        "final_time": 10.0,
+        "simulation_dt": 0.01,
+        "controller_dt": 0.1}
+}

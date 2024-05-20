@@ -1,0 +1,21 @@
+{
+    "num_sims": 100,
+    "system": {
+        "mass_range": 1.0,
+        "spring_constant_range": 1.0,
+        "damping_coefficient_range": 1.0,
+        "noise_std": [2.0, 0.1]
+    },
+    "controller": {
+        "decay_rate_range": 1.0
+    },
+    "state_conditions": {
+        "p0_range": [-2.0, 2.0],
+        "v0_range": [-2.0, 2.0],
+        "xref": [1.0, 0.0]
+    },
+    "simulator": {
+        "final_time": 10.0,
+        "simulation_dt": 0.01,
+        "controller_dt": 0.1}
+}
