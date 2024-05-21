@@ -4,7 +4,7 @@
         "mass_range": 1.0,
         "spring_constant_range": 1.0,
         "damping_coefficient_range": 1.0,
-        "noise_std": [2.0, 0.1]
+        "noise_std": [2.0, 0.2]
     },
     "controller": {
         "decay_rate_range": 1.0
