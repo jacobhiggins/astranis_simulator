@@ -6,10 +6,8 @@ import matplotlib.cm as cm
 import pdb
 
 dfs = []
-# for file in os.listdir('data'):
-#     dfs.append(pd.read_csv(f'data/{file}'))
-
-dfs.append(pd.read_csv('data/single_output.csv'))
+for file in os.listdir('data'):
+    dfs.append(pd.read_csv(f'data/{file}'))
 
 fig, axs = plt.subplots(3, 1, sharex=True)
 colors = cm.viridis(np.linspace(0, 1, len(dfs)))
