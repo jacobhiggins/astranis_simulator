@@ -47,7 +47,7 @@ int main(int argc, char** argv) {
     sim.set_x(x0);
     sim.set_xref(xref);
     sim.set_print2console(true);
-    if (argc > 2) {sim.set_output_filepath(argv[2]); sim.set_print2file(true);}
+    if (argc > 2) {sim.set_output_filepath(argv[2]); sim.set_print2file(true);} // Get output file path from command line, if provided
 
     // ----------------- Run Simulation -----------------
     sim.run(tf);

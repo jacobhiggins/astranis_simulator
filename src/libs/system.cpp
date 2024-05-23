@@ -80,5 +80,5 @@ void NoisySpringMassSystem::set_noise_std(const Eigen::Vector2d& noise_std_) {no
 
 void NoisySpringMassSystem::update(const Eigen::VectorXd& u, const double& dt) {
     x += xdot(u) * dt;
-    x += Eigen::Vector2d::Random().cwiseProduct(noise_std)*dt;
+    x += Eigen::Vector2d::Random().cwiseProduct(noise_std)*dt; // Process noise
 }

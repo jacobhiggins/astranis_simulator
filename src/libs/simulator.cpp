@@ -7,7 +7,7 @@ Simulator::Simulator(std::unique_ptr<System> system_,
         std::unique_ptr<Controller> controller_,
         const double& sim_dt_, const double& controller_dt_) : 
         system(std::move(system_)), observer(std::move(observer_)), controller(std::move(controller_)),
-        t(0.0), sim_dt(sim_dt_), controller_dt(controller_dt_) {
+        t(0.0), sim_dt(sim_dt_), controller_dt(controller_dt_), simsteps_per_controllerstep(controller_dt/sim_dt) {
             if (sim_dt <= 0.0){throw std::invalid_argument("sim_dt must be greater than 0");}
             if (controller_dt <= 0.0){throw std::invalid_argument("controller_dt must be greater than 0");}
             if (controller_dt <= sim_dt){throw std::invalid_argument("controller_dt must be greater than or equal to sim_dt");}
@@ -29,14 +29,13 @@ void Simulator::set_print2file(const bool& print2file_){
 void Simulator::set_output_filepath(const std::string& output_filepath_){output_filepath = output_filepath_;}
 
 void Simulator::sim_step() {
-    // Get current estimated state
-    Eigen::VectorXd x = observer->get_x_hat();
-    // Get control input
-    Eigen::VectorXd u = controller->control(x, xref);
-    int n = controller_dt / sim_dt;
-    for (int i=0; i<n; i++){
-        apply_u(u);
-        if (print2console) std::cout << "\tt, x, u : " << t << " | " << system->get_x().transpose() << " | " << u.transpose() << ")" << std::endl;
+    Eigen::VectorXd x = observer->get_x_hat(); // Get current estimated state
+    Eigen::VectorXd u = controller->control(x, xref); // Get control input
+    for (int i=0; i<simsteps_per_controllerstep; ++i){
+        apply_u(u); // Apply control input to the system
+        if (print2console){
+            std::cout << "\tt, x, u : " << t << " | " << system->get_x().transpose() << " | " << u.transpose() << ")" << std::endl;
+        }
         if (print2file){
             output_file << t << "," << system->get_x()[0] << "," << system->get_x()[1] << "," << u[0] << ", " << xref[0] << std::endl;
         }
@@ -44,12 +43,9 @@ void Simulator::sim_step() {
 }
 
 void Simulator::apply_u(const Eigen::VectorXd& u) {
-    // Update observer state
-    observer->update(system->get_y(u), u, sim_dt);
-    // Update system state
-    system->update(u, sim_dt);
-    // Update time
-    t += sim_dt;
+    observer->update(system->get_y(u), u, sim_dt); // Update observer state
+    system->update(u, sim_dt); // Update system state
+    t += sim_dt; // Update time
 }
 
 void Simulator::run(const double& duration){

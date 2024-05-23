@@ -33,6 +33,7 @@ private:
     Eigen::MatrixXd C;
     Eigen::MatrixXd D;
 protected:
+    // Default constructor and method to set the matrices are protected to allow only derived classes to use them
     LinearSystem();
     void set_ABCD(const Eigen::MatrixXd& A_, const Eigen::MatrixXd& B_, const Eigen::MatrixXd& C_, const Eigen::MatrixXd& D_);
 public:
@@ -42,7 +43,9 @@ public:
 };
 
 /* Spring-mass system class
-
+Inherits from the LinearSystem class
+Represents a spring-mass system, where the state vector x is [position, velocity]
+AB matrices are automatically defined by the system parameters m, k, and b
 */
 class SpringMassSystem : public LinearSystem {
 private:
@@ -60,7 +63,7 @@ public:
 };
 
 /* Noisy Spring-mass system class
-
+Same as the SpringMassSystem class, but with added process noise to the state vector x
 */
 class NoisySpringMassSystem : public SpringMassSystem {
 private:
